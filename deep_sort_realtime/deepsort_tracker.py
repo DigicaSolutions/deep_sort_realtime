@@ -5,10 +5,10 @@ from collections.abc import Iterable
 import cv2
 import numpy as np
 
-from deep_sort_realtime.deep_sort import nn_matching
-from deep_sort_realtime.deep_sort.detection import Detection
-from deep_sort_realtime.deep_sort.tracker import Tracker
-from deep_sort_realtime.utils.nms import non_max_suppression
+from .deep_sort import nn_matching
+from .deep_sort.detection import Detection
+from .deep_sort.tracker import Tracker
+from .utils.nms import non_max_suppression
 
 logger = logging.getLogger(__name__)
 
@@ -116,7 +116,7 @@ class DeepSort(object):
                 from deep_sort_realtime.embedder.embedder_pytorch import TorchReID_Embedder as Embedder
 
                 self.embedder = Embedder(
-                    bgr=bgr, 
+                    bgr=bgr,
                     gpu=embedder_gpu,
                     model_name=embedder_model_name,
                     model_wts_path=embedder_wts,
@@ -190,7 +190,7 @@ class DeepSort(object):
 
         assert isinstance(raw_detections,Iterable)
 
-        if len(raw_detections) > 0: 
+        if len(raw_detections) > 0:
             if not self.polygon:
                 assert len(raw_detections[0][0])==4
                 raw_detections = [d for d in raw_detections if d[0][2] > 0 and d[0][3] > 0]
@@ -210,7 +210,7 @@ class DeepSort(object):
                 detections = self.create_detections_poly(
                     raw_detections, embeds, bounding_rects,
                 )
-        else: 
+        else:
             detections = []
 
         # Run non-maxima suppression.
@@ -253,10 +253,10 @@ class DeepSort(object):
         detection_list = []
         for i, (raw_det, embed) in enumerate(zip(raw_dets, embeds)):
             detection_list.append(
-                Detection(  
-                    raw_det[0], 
-                    raw_det[1], 
-                    embed, 
+                Detection(
+                    raw_det[0],
+                    raw_det[1],
+                    embed,
                     class_name=raw_det[2] if len(raw_det)==3 else None,
                     instance_mask = instance_masks[i] if isinstance(instance_masks, Iterable) else instance_masks,
                     others = others[i] if isinstance(others, Iterable) else others,
@@ -292,7 +292,7 @@ class DeepSort(object):
     def crop_bb(frame, raw_dets, instance_masks=None):
         crops = []
         im_height, im_width = frame.shape[:2]
-        if instance_masks is not None: 
+        if instance_masks is not None:
             masks = []
         else:
             masks = None
@@ -305,9 +305,9 @@ class DeepSort(object):
             crop_t = max(0, t)
             crop_b = min(im_height, b)
             crops.append(frame[crop_t:crop_b, crop_l:crop_r])
-            if instance_masks is not None: 
+            if instance_masks is not None:
                 masks.append( instance_masks[i][crop_t:crop_b, crop_l:crop_r] )
-        
+
         return crops, masks
 
     @staticmethod
