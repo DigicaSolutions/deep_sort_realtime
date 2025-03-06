@@ -7,7 +7,7 @@ import pkg_resources
 import torch
 from torchvision.transforms import transforms
 
-from deep_sort_realtime.embedder.mobilenetv2_bottle import MobileNetV2_bottle
+from .embedder.mobilenetv2_bottle import MobileNetV2_bottle
 
 logger = logging.getLogger(__name__)
 
@@ -145,8 +145,8 @@ class TorchReID_Embedder(object):
 
     Params
     ------
-    - model_name (optional, str): name of model, see torchreid model zoo. defaults to osnet_ain_x1_0 
-    - model_wts_path (optional, str) : path to torchreid model weights, defaults to TORCHREID_OSNET_AIN_X1_0_MS_D_C_WTS if model_name=='osnet_ain_x1_0' (default) and else, imagenet pretrained weights of given model 
+    - model_name (optional, str): name of model, see torchreid model zoo. defaults to osnet_ain_x1_0
+    - model_wts_path (optional, str) : path to torchreid model weights, defaults to TORCHREID_OSNET_AIN_X1_0_MS_D_C_WTS if model_name=='osnet_ain_x1_0' (default) and else, imagenet pretrained weights of given model
     - bgr (optional, Bool) : boolean flag indicating if input frames are bgr or not, defaults to True
     - gpu (optional, Bool) : boolean flag indicating if gpu is enabled or not
     - max_batch_size: Does nothing, just for compatibility to other embedder classes
@@ -155,17 +155,17 @@ class TorchReID_Embedder(object):
     def __init__(
         self, model_name=None, model_wts_path=None, bgr=True, gpu=True, max_batch_size=None,
     ):
-        try: 
-            import torchreid 
-        except ImportError: 
+        try:
+            import torchreid
+        except ImportError:
             raise Exception('ImportError: torchreid is not installed, please install and try again or choose another embedder')
-        
+
         from torchreid.utils import FeatureExtractor
-        
-        if model_name is None: 
+
+        if model_name is None:
             model_name = 'osnet_ain_x1_0'
 
-        if model_wts_path is None: 
+        if model_wts_path is None:
             model_wts_path = ''
 
         if model_name=='osnet_ain_x1_0' and model_wts_path=='':
@@ -178,7 +178,7 @@ class TorchReID_Embedder(object):
             device = 'cpu'
 
         self.model = FeatureExtractor(
-            model_name=model_name, 
+            model_name=model_name,
             model_path=model_wts_path,
             device=device,
         )

@@ -21,8 +21,8 @@ if TORCH_INSTALLED:
         CLIP_INSTALLED = True
     except ModuleNotFoundError:
         CLIP_INSTALLED = False
-    
-    try: 
+
+    try:
         import torchreid
         TORCHREID_INSTALLED = True
     except ModuleNotFoundError:
@@ -47,7 +47,7 @@ def test_embedder_generic(Embedder_object, thresh=0.2, gpu=GPU):
     import cv2
     import numpy as np
 
-    from deep_sort_realtime.deep_sort.nn_matching import _nn_cosine_distance
+    from ..deep_sort_realtime.deep_sort.nn_matching import _nn_cosine_distance
 
     imgpath = pardir / "smallapple.jpg"
     imgpath2 = pardir / "rock.jpg"
@@ -81,21 +81,21 @@ def test_embedder_generic(Embedder_object, thresh=0.2, gpu=GPU):
 class TestModule(unittest.TestCase):
     @unittest.skipIf(not TORCH_INSTALLED, "Tensorflow is not installed")
     def test_embedder_torch(self):
-        from deep_sort_realtime.embedder.embedder_pytorch import MobileNetv2_Embedder
+        from ..deep_sort_realtime.embedder.embedder_pytorch import MobileNetv2_Embedder
 
         print("Testing pytorch embedder")
         return test_embedder_generic(MobileNetv2_Embedder)
 
     @unittest.skipIf(not TORCH_INSTALLED, "Tensorflow is not installed")
     def test_embedder_torch_cpu(self):
-        from deep_sort_realtime.embedder.embedder_pytorch import MobileNetv2_Embedder
+        from ..deep_sort_realtime.embedder.embedder_pytorch import MobileNetv2_Embedder
 
         print("Testing pytorch embedder")
         return test_embedder_generic(MobileNetv2_Embedder, gpu=False)
 
     @unittest.skipIf(not TF_INSTALLED, "Tensorflow is not installed")
     def test_embedder_tf(self):
-        from deep_sort_realtime.embedder.embedder_tf import MobileNetv2_Embedder
+        from ..deep_sort_realtime.embedder.embedder_tf import MobileNetv2_Embedder
 
         print("Testing pytorch embedder in cpu")
         return test_embedder_generic(
@@ -104,35 +104,35 @@ class TestModule(unittest.TestCase):
 
     @unittest.skipIf(not TF_INSTALLED, "Tensorflow is not installed")
     def test_embedder_tf_cpu(self):
-        from deep_sort_realtime.embedder.embedder_tf import MobileNetv2_Embedder
+        from ..deep_sort_realtime.embedder.embedder_tf import MobileNetv2_Embedder
 
         print("Testing tf embedder in cpu")
         return test_embedder_generic(MobileNetv2_Embedder, gpu=False)
 
     @unittest.skipIf(not CLIP_INSTALLED, "CLIP is not installed")
     def test_embedder_clip(self):
-        from deep_sort_realtime.embedder.embedder_clip import Clip_Embedder
+        from ..deep_sort_realtime.embedder.embedder_clip import Clip_Embedder
 
         print("Testing CLIP embedder")
         return test_embedder_generic(Clip_Embedder)
 
     @unittest.skipIf(not CLIP_INSTALLED, "CLIP is not installed")
     def test_embedder_clip_cpu(self):
-        from deep_sort_realtime.embedder.embedder_clip import Clip_Embedder
+        from ..deep_sort_realtime.embedder.embedder_clip import Clip_Embedder
 
         print("Testing CLIP embedder")
         return test_embedder_generic(Clip_Embedder, gpu=False)
 
     @unittest.skipIf(not TORCHREID_INSTALLED, "Torchreid is not installed")
     def test_embedder_torchreid(self):
-        from deep_sort_realtime.embedder.embedder_pytorch import TorchReID_Embedder
+        from ..deep_sort_realtime.embedder.embedder_pytorch import TorchReID_Embedder
 
         print("Testing Torchreid embedder")
         return test_embedder_generic(TorchReID_Embedder)
 
     @unittest.skipIf(not TORCHREID_INSTALLED, "Torchreid is not installed")
     def test_embedder_torchreid_cpu(self):
-        from deep_sort_realtime.embedder.embedder_pytorch import TorchReID_Embedder
+        from ..deep_sort_realtime.embedder.embedder_pytorch import TorchReID_Embedder
 
         print("Testing Torchreid embedder")
         return test_embedder_generic(TorchReID_Embedder, gpu=False)

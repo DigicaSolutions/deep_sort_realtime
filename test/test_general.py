@@ -23,7 +23,7 @@ class TestModule(unittest.TestCase):
     @unittest.skipIf(not TORCH_INSTALLED, "Tensorflow is not installed")
     def test_base(self):
 
-        from deep_sort_realtime.deepsort_tracker import DeepSort
+        from ..deep_sort_realtime.deepsort_tracker import DeepSort
 
         import numpy as np
 
@@ -68,7 +68,7 @@ class TestModule(unittest.TestCase):
     @unittest.skipIf(not CLIP_INSTALLED, "CLIP is not installed")
     def test_clip(self):
 
-        from deep_sort_realtime.deepsort_tracker import DeepSort
+        from ..deep_sort_realtime.deepsort_tracker import DeepSort
 
         import numpy as np
 

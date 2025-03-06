@@ -16,7 +16,7 @@ except ModuleNotFoundError:
 class TestModule(unittest.TestCase):
     def test_hbb(self):
 
-        from deep_sort_realtime.deepsort_tracker import DeepSort
+        from .deepsort_tracker import DeepSort
 
         import numpy as np
 
@@ -121,7 +121,7 @@ class TestModule(unittest.TestCase):
 
     def test_obb(self):
 
-        from deep_sort_realtime.deepsort_tracker import DeepSort
+        from ..deep_sort_realtime.deepsort_tracker import DeepSort
 
         import numpy as np
 
