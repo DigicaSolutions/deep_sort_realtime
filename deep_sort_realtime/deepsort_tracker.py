@@ -101,7 +101,7 @@ class DeepSort(object):
             if embedder not in EMBEDDER_CHOICES:
                 raise Exception(f"Embedder {embedder} is not a valid choice.")
             if embedder == "mobilenet":
-                from deep_sort_realtime.embedder.embedder_pytorch import (
+                from .embedder.embedder_pytorch import (
                     MobileNetv2_Embedder as Embedder,
                 )
 
@@ -113,7 +113,7 @@ class DeepSort(object):
                     model_wts_path=embedder_wts,
                 )
             elif embedder == 'torchreid':
-                from deep_sort_realtime.embedder.embedder_pytorch import TorchReID_Embedder as Embedder
+                from .embedder.embedder_pytorch import TorchReID_Embedder as Embedder
 
                 self.embedder = Embedder(
                     bgr=bgr,
@@ -123,7 +123,7 @@ class DeepSort(object):
                 )
 
             elif embedder.startswith('clip_'):
-                from deep_sort_realtime.embedder.embedder_clip import (
+                from .embedder.embedder_clip import (
                     Clip_Embedder as Embedder,
                 )
 
